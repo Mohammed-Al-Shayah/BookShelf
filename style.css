@@ -1,0 +1,15 @@
+body{
+
+  background-color: rgb(202, 202, 202);
+}
+
+
+th, td {
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid #a09e9e;
+  }
+
+  img{
+    width: 180px;
+}
