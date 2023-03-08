@@ -12,7 +12,7 @@ let books=[
     edition: 15,
     image: "images/book.jpg"
 },
-{  id: 1,
+{  id: 3,
     title: "book1",
     author: "John Doe",
     edition: 12,
@@ -56,7 +56,7 @@ books.forEach(function(book) {
     cell2.innerHTML = `<div>${book.title}</div>`;
     cell3.innerHTML = `<div>${book.author}</div>`;
     cell4.innerHTML = `<div>${book.edition}</div>`;
-    cell5.innerHTML='<button class="fav-btn" onclick="addToFavorites()">Add to Favorites</button>';
+    cell5.innerHTML=`<button class="fav-btn" data-book-id="${book.id}"><a href="./myFavoriteBook.html">Add To Favorites</button>`;
 
 
     row2.appendChild(cell1);
@@ -73,33 +73,79 @@ books.forEach(function(book) {
 
 
 
-
+const favBtns = document.querySelectorAll(".fav-btn");
+const favorites = [];
 function addToFavorites(book) {
-  if (!books.includes(book)) {
-    books.push(book);
+  if (!favorites.includes(book)) {
+    favorites.push(book);
+    localStorage.setItem(book.id, JSON.stringify(book));
     renderFavorites();
   }
 }
 
+
+favBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const bookId = e.target.dataset.bookId;
+    const book = books.find((b) => b.id === parseInt(bookId));
+    addToFavorites(book);
+  });
+});
+
+
+
 function renderFavorites() {
-  const favPage = window.open("", "myfavorites");
-  const favPageBody = favPage.document.querySelector("body");
-  favPageBody.innerHTML = `
-    <h1>My Favorite Books</h1>
-  `;
+
+  
+  const favPageBody = document.createElement("div");
+
   favorites.forEach((book) => {
+    console.log(book.image);
     const bookDiv = document.createElement("div");
     bookDiv.innerHTML = `
-      <img src="${book.image}">
+      <img src="./images/book.jpg">
       <div>${book.title}</div>
       <div>${book.author}</div>
       <div>Edition ${book.edition}</div>
-      <button class="fav-btn" data-book-id="${book.id}">Remove from Favorites</button>
+      <button class="fav-btn" data-id="${book.id}">Remove from Favorites</button>
     `;
     favPageBody.appendChild(bookDiv);
+
+
+    const removeBtn=bookDiv.querySelector(".fav-btn");
+    removeBtn.addEventListener("click",
+    (e) => {
+          const bookId = e.target.getAttribute("data-id");
+          const bookIndex = books.findIndex((b) => b.id === parseInt(bookId));
+          books.splice(bookIndex );
+          localStorage.removeItem(books.id);
+          renderFavorites();
+          
+        });
 
 });
 }
 
+
+// function remoFavorites(){
+//   console.log(JSON.parse(localStorage.removeItem(2)).title)
+// }
+
+// const reBtns = document.querySelectorAll(".re-btn");
+// const remove = [];
+// function removeFavorites(book) {
+//   if (!remove.includes(book)) {
+//     localStorage.removeItem(book.id);
+//   }
+// }
+
+
+// reBtns.forEach((btn) => {
+//   btn.removeFavorites("click", (e) => {
+//     const bookId = e.target.dataset.bookId;
+//     const book = books.find((b) => b.id === parseInt(bookId));
+//     removeFavorites(book)
+//     });
+// });
 
 
