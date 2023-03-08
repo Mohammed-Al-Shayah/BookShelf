@@ -13,3 +13,13 @@ th, td {
   img{
     width: 180px;
 }
+
+.fav-btn {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.myfavorites{
+  background-color: rgb(202, 202, 202);
+
+}
