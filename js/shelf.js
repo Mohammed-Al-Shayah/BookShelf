@@ -24,6 +24,9 @@ let books=[
 
 const  myBook=document.querySelector(".bookShelf");
 
+const srotItem =document.querySelector(".m");
+
+
 master("Add To Favorites");
 
 
@@ -58,4 +61,6 @@ favBtns.forEach((btn) => {
     addToFavorites(book);
   });
 });
+
+
 

@@ -53,7 +53,3 @@
     });
     }
 
-
-    function sum(a,s){
-        return a+s;
-    }
